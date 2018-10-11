@@ -3,7 +3,10 @@
     <h1>Numbrite faktid</h1>
     <p>Huvitavad faktid iga numbri kohta</p>
     <input type="number" min="0" v-model="number">
-    <p>{{ data }}</p>
+    <br>
+    <input type="number" min="0" v-model="inc">
+    <ul>{{ data }}</ul>
+    <!--<p>{{ data }}</p>-->
   </div>
 </template>
 
@@ -15,14 +18,22 @@ export default {
     return {
       data: '',
       number: 0
-  
+      inc: 0
     }
   },
   watch: {
     number() {
-      if(this.number !== '') {
+      this.getFact()
+    },
+    inc() {
+      this.getFact()
+    }
+  }
+    methods: {
+    getFact() {
+      if(this.number !== '' && this.inc !== '') {
       
-      var url = `http://numbersapi.com/${this.number}`
+      var url = `http://numbersapi.com/${this.number} + ${this.inc}`
 
       axios.get(url)
         .then(response => {
